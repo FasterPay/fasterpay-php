@@ -5,7 +5,7 @@ class Config
 {
 
 	const VERSION = '1.0.0';
-	const API_BASE_URL = 'https//pay.fasterpay.com';
+	const API_BASE_URL = 'https://pay.fasterpay.com';
 
 	public static $instance;
 
