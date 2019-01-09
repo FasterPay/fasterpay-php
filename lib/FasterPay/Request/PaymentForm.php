@@ -5,6 +5,7 @@ use FasterPay\Gateway;
 
 class PaymentForm
 {
+	const END_POINT						= '/payment/form';
 	const FORM_AMOUNT_FIELD 			= 'amount';
 	const FORM_DESCRIPTION_FIELD 		= 'description';
 	const FORM_CURRENCY_FIELD 			= 'currency';
@@ -60,7 +61,7 @@ class PaymentForm
 		$parameters[self::FORM_API_KEY_FIELD]	= $this->gateway->getConfig()->getPublicKey();
 		$parameters[self::FORM_HASH_FIELD] 	= $this->gateway->signature()->calculateHash($parameters);
 
-        $form = '<form align="center" method="post" action="' . $this->gateway->getConfig()->getApiBaseUrl() .'">';
+        $form = '<form align="center" method="post" action="' . $this->gateway->getConfig()->getApiBaseUrl() . self::END_POINT .'">';
         foreach ($parameters as $key =>$val) {
             $form .= '<input type="hidden" name="'.$key.'" value="'.$val.'" />';
         }
