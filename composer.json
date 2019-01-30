@@ -1,0 +1,30 @@
+{
+	"name": "fasterpay/fasterpay-php",
+	"description": "FasterPay PHP SDK enables you to integrate the FasterPay's Checkout Page seamlessly without having the hassle of integrating everything from Scratch.",
+	"version": "1.0.0",
+	"type": "library",
+	"homepage": "https://www.fasterpay.com",
+	"keywords": [
+		"fasterpay",
+		"api",
+		"payments"
+		"credit cards",
+		"recurring billing",
+		"payment processing"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Fasterpay Team",
+			"email": "integration@fasterpay.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"ext-curl": "*",
+		"ext-json": "*"
+	},
+	"autoload": {
+		"psr-4": ["lib/FasterPay/"]
+	}
+}
