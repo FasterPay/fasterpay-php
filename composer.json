@@ -25,6 +25,8 @@
 		"ext-json": "*"
 	},
 	"autoload": {
-		"psr-4": ["lib/FasterPay/"]
+		"psr-4": {
+			"Fasterpay\\": "lib/"
+		}
 	}
 }
