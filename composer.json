@@ -28,5 +28,6 @@
 		"psr-4": {
 			"Fasterpay\\": "lib/"
 		}
-	}
+	},
+	"minimum-stability": "dev"
 }
