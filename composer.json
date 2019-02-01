@@ -25,7 +25,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"FasterPay\\": "lib/"
+			"FasterPay\\": "lib/FasterPay/"
 		}
 	},
 	"minimum-stability": "dev"
