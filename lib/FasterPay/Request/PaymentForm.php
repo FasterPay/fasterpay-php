@@ -61,11 +61,11 @@ class PaymentForm
 		$parameters[self::FORM_API_KEY_FIELD]	= $this->gateway->getConfig()->getPublicKey();
 		$parameters[self::FORM_HASH_FIELD] 	= $this->gateway->signature()->calculateHash($parameters);
 
-        $form = '<form align="center" method="post" action="' . $this->gateway->getConfig()->getApiBaseUrl() . self::END_POINT .'">';
+        $form = '<form align="center" method="post" action="' . $this->gateway->getConfig()->getApiBaseUrl() . self::END_POINT .'" name="fasterpay_payment_form" id="fasterpay_payment_form">';
         foreach ($parameters as $key =>$val) {
             $form .= '<input type="hidden" name="'.$key.'" value="'.$val.'" />';
         }
-        $form .= '<input type="Submit" value="Pay Now"/></form>';
+        $form .= '<input type="Submit" value="Pay Now" id="fasterpay_submit"/></form>';
         return $form;
     }
 }

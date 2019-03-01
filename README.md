@@ -13,7 +13,7 @@ $ git clone https://github.com/FasterPay/fasterpay-php.git
 $ cp fasterpay-php path-to-project/lib/fasterpay-php
 ```
 
-## Initiating Payment Request using Python SDK
+## Initiating Payment Request using PHP SDK
 ```php
 <?php
 include('lib/autoload.php');
@@ -21,6 +21,7 @@ include('lib/autoload.php');
 $gateway = new FasterPay\Gateway(array(
 'publicKey' 	=> '<your public key>',
 'privateKey'	=> '<your private key>',
+'isTest'      => 0 // Use 1 for Test Method
 ));
 
 $form = $gateway->paymentForm()->buildForm(
