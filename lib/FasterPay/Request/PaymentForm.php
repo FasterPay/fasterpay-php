@@ -54,9 +54,9 @@ class PaymentForm
 			self::FORM_RECURRING_TRIAL_AMOUNT_FIELD,
 			self::FORM_RECURRING_TRIAL_PERIOD_FIELD
 		);
-	}	
+	}
 
-	public function buildForm($parameters = array())
+	public function buildForm($parameters = array(), $autoSubmitForm = False)
 	{
 		$parameters[self::FORM_API_KEY_FIELD]	= $this->gateway->getConfig()->getPublicKey();
 		$parameters[self::FORM_HASH_FIELD] 	= $this->gateway->signature()->calculateHash($parameters);
@@ -66,6 +66,9 @@ class PaymentForm
             $form .= '<input type="hidden" name="'.$key.'" value="'.$val.'" />';
         }
         $form .= '<input type="Submit" value="Pay Now" id="fasterpay_submit"/></form>';
+				if($autoSubmitForm){
+					$form .= "<script type=\"text/javascript\">document.getElementById(\"fasterpay_submit\").click(); </script>";
+				}
         return $form;
     }
 }
