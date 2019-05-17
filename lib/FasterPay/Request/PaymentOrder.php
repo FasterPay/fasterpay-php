@@ -3,7 +3,7 @@ namespace FasterPay\Request;
 
 use FasterPay\Gateway;
 
-class Refund
+class PaymentOrder
 {
 	const END_POINT						= '/payment/<order-id>/refund';
 
@@ -14,7 +14,7 @@ class Refund
 		$this->gateway = $gateway;
 	}
 
-  public function process($orderId, $amount)
+  public function refund($orderId, $amount)
   {
     $url = str_replace("<order-id>", $orderId, $this->gateway->getConfig()->getApiBaseUrl() . self::END_POINT);
 

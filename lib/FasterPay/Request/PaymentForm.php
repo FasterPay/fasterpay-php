@@ -56,7 +56,7 @@ class PaymentForm
 		);
 	}
 
-	public function buildForm($parameters = array(), $autoSubmitForm = False)
+	public function buildForm($parameters = array(), $options = array())
 	{
 		$parameters[self::FORM_API_KEY_FIELD]	= $this->gateway->getConfig()->getPublicKey();
 		$parameters[self::FORM_HASH_FIELD] 	= $this->gateway->signature()->calculateHash($parameters);
@@ -66,8 +66,8 @@ class PaymentForm
             $form .= '<input type="hidden" name="'.$key.'" value="'.$val.'" />';
         }
         $form .= '<input type="Submit" value="Pay Now" id="fasterpay_submit"/></form>';
-				if($autoSubmitForm){
-					$form .= "<script type=\"text/javascript\">document.getElementById(\"fasterpay_submit\").click(); </script>";
+				if(!empty($options) && array_key_exists("autoSubmitForm", $options)){
+					$form .= ($options["autoSubmitForm"]) ? "<script type=\"text/javascript\">document.getElementById(\"fasterpay_submit\").click(); </script>" : "" ;
 				}
         return $form;
     }

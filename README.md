@@ -24,15 +24,13 @@ $gateway = new FasterPay\Gateway(array(
 'isTest'      => 0 // Use 1 for Test Method
 ));
 
-$form = $gateway->paymentForm()->buildForm(
-array(
+$form = $gateway->paymentForm()->buildForm(array(
   'description' => 'Test order',
   'amount' => '10',
   'currency' => 'USD',
-  'merchant_order_id' => 'xxxxxx',
+  'merchant_order_id' => time(),
   'success_url' => 'https://yourcompanywebsite.com/success'
-)
-);
+), array("autoSubmitForm" => true));
 
 echo $form;
 ?>
@@ -50,8 +48,7 @@ $gateway = new Fasterpay\Gateway(array(
     'privateKey'    => '<your private key>',
 ));
 
-$pingbackData = json_decode(file_get_contents('php://input'), true);
-if(!empty($pingbackData)){
+if(!empty($_REQUEST)){
 
     if($gateway->pingback()->validate(
       array("apiKey" => $_SERVER["HTTP_X_APIKEY"]))
@@ -75,7 +72,7 @@ include('lib/autoload.php');
 $gateway = new FasterPay\Gateway(array(
   'publicKey'   => '<your public key>',
   'privateKey'  => '<your private key>',
-  'apiBaseUrl'  => 'https://pay.sandbox.faterpay.com'
+  'isTest'      => 1
 ));
 ?>
 ```

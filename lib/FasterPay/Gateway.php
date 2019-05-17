@@ -1,8 +1,8 @@
-<?php
+lib/FasterPay/Gateway.php<?php
 namespace FasterPay;
 
 use FasterPay\Request\PaymentForm;
-use FasterPay\Request\Refund;
+use FasterPay\Request\PaymentOrder;
 use FasterPay\Request\Subscription;
 use FasterPay\Validator\Signature;
 use FasterPay\Validator\Pingback;
@@ -36,9 +36,9 @@ class Gateway
 		return new Pingback($this);
 	}
 
-	public function refund()
+	public function paymentOrder()
 	{
-		return new Refund($this);
+		return new PaymentOrder($this);
 	}
 
 	public function subscription()
