@@ -2,15 +2,17 @@
 
 require_once('../lib/autoload.php');
 
-$gateway = new FasterPay\Gateway(array(
-    'publicKey' => 'a7b7fe9a2ca2c717720577b5243a565d',
-    'privateKey' => '69d7686cf2fe45d4f12c207d9c4b9845',
-    'isTest' => 0,
-    'apiBaseUrl' => 'http://develop.pay2.fasterpay.bamboo.stuffio.com'
-));
+$gateway = new FasterPay\Gateway([
+    'publicKey' => '<your-public-key>',
+    'privateKey' => '<your-private-key>',
+    'isTest' => 1,
+]);
+
+$orderId = '<your-order-id>';
+$amount = '<refund-amount>';
 
 try {
-    $refundResponse = $gateway->paymentService()->refund(12735, 1);
+    $refundResponse = $gateway->paymentService()->refund($orderId, $amount);
 } catch (FasterPay\Exception $e) {
     echo '<pre>';
     print_r($e->getMessage());

@@ -2,15 +2,15 @@
 
 require_once('../lib/autoload.php');
 
-$gateway = new FasterPay\Gateway(array(
-    'publicKey' => 'a7b7fe9a2ca2c717720577b5243a565d',
-    'privateKey' => '69d7686cf2fe45d4f12c207d9c4b9845',
-    'isTest' => 0,
-    'apiBaseUrl' => 'http://develop.pay2.fasterpay.bamboo.stuffio.com'
-));
+$gateway = new FasterPay\Gateway([
+    'publicKey' => '<your-public-key>',
+    'privateKey' => '<your-private-key>',
+    'isTest' => 1,
+]);
+$subscriptionId = '<your-subscription-id>';
 
 try {
-    $refundResponse = $gateway->subscriptionService()->cancel(100346088);
+    $refundResponse = $gateway->subscriptionService()->cancel($subscriptionId);
 } catch (FasterPay\Exception $e) {
     echo '<pre>';
     print_r($e->getMessage());
