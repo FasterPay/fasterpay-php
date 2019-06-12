@@ -16,26 +16,32 @@ $ cp fasterpay-php path-to-project/lib/fasterpay-php
 ## Initiating Payment Request using PHP SDK
 ```php
 <?php
-include('lib/autoload.php');
 
-$gateway = new FasterPay\Gateway(array(
-'publicKey' 	=> '<your public key>',
-'privateKey'	=> '<your private key>',
-'isTest'      => 0 // Use 1 for Test Method
-));
+require_once('fasterpay-php/lib/autoload.php');
+
+$gateway = new FasterPay\Gateway([
+    'publicKey' => '<your-public-key>',
+    'privateKey' => '<your-private-key>',
+    'isTest' => 0, // Use 1 for Test Method
+]);
 
 $form = $gateway->paymentForm()->buildForm(
-array(
-  'description' => 'Test order',
-  'amount' => '10',
-  'currency' => 'USD',
-  'merchant_order_id' => 'xxxxxx',
-  'success_url' => 'https://yourcompanywebsite.com/success'
-)
+    [
+        'description' => 'Test order',
+        'amount' => '10',
+        'currency' => 'USD',
+        'merchant_order_id' => time(),
+        'success_url' => 'https://yourcompanywebsite.com/success',
+        'pingback_url' => 'https://yourcompanywebsite.com/pingback/'
+    ],
+    [
+        'autoSubmit' => false,
+        'hidePayButton' => false
+    ]
 );
 
 echo $form;
-?>
+
 ```
 For more information on the API Parameters, refer to our entire API Documentation [here](https://docs.fasterpay.com/api#section-custom-integration)
 
@@ -43,26 +49,33 @@ For more information on the API Parameters, refer to our entire API Documentatio
 
 ```php
 <?php
-include('lib/autoload.php');
 
-$gateway = new Fasterpay\Gateway(array(
-    'publicKey'     => '<your public key>',
-    'privateKey'    => '<your private key>',
-));
+require_once('fasterpay-php/lib/autoload.php');
 
-$pingbackData = json_decode(file_get_contents('php://input'), true);
-if(!empty($pingbackData)){
+$gateway = new FasterPay\Gateway([
+    'publicKey' => '<your-public-key>',
+    'privateKey' => '<your-private-key>',
+    'isTest' => 0, // Use 1 for Test Mode
+]);
 
-    if($gateway->pingback()->validate(
-      array("apiKey" => $_SERVER["HTTP_X_APIKEY"]))
-    ){
+$pingbackData = $_REQUEST;
+
+if (!empty($pingbackData)) {
+
+    if ($gateway->pingback()->validate(
+        ["apiKey" => $_SERVER["HTTP_X_APIKEY"]])
+    ) {
+        echo "<pre>";
+        print_r($pingbackData);
+        echo '</pre>';
         #TODO: Write your code to deliver contents to the End-User.
-        echo "OK"; exit();
+        echo "OK";
+        exit();
     }
 }
 
 echo "NOK";
-?>
+
 ```
 ## FasterPay Test Mode
 FasterPay has a Sandbox environment called Test Mode. Test Mode is a virtual testing environment which is an exact replica of the live FasterPay environment. This allows businesses to integrate and test the payment flow without being in the live environment. Businesses can create a FasterPay account, turn on the **Test Mode** and begin to integrate the widget using the test integration keys.
@@ -70,14 +83,14 @@ FasterPay has a Sandbox environment called Test Mode. Test Mode is a virtual tes
 ### Initiating FasterPay Gateway in Test-Mode
 ```php
 <?php
-include('lib/autoload.php');
 
-$gateway = new FasterPay\Gateway(array(
-  'publicKey'   => '<your public key>',
-  'privateKey'  => '<your private key>',
-  'apiBaseUrl'  => 'https://pay.sandbox.faterpay.com'
-));
-?>
+require_once('fasterpay-php/lib/autoload.php');
+
+$gateway = new FasterPay\Gateway([
+    'publicKey' => '<your-public-key>',
+    'privateKey' => '<your-private-key>',
+    'isTest' => 0, // Use 1 for Test Mode
+]);
 ```
 
 ### Questions?
