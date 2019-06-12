@@ -2,7 +2,7 @@
 namespace FasterPay\Services;
 
 use FasterPay\Exception;
-use FasterPay\Response;
+use FasterPay\Response\PaymentResponse;
 
 class Payment extends GeneralService
 {
@@ -23,7 +23,7 @@ class Payment extends GeneralService
 
         $response = $this->httpService->getHttpClient()->post($endpoint, $params);
 
-        return new Response($response);
+        return new PaymentResponse($response);
     }
 
 }

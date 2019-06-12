@@ -10,7 +10,7 @@ $gateway = new FasterPay\Gateway([
 $subscriptionId = '<your-subscription-id>';
 
 try {
-    $refundResponse = $gateway->subscriptionService()->cancel($subscriptionId);
+    $cancellationResponse = $gateway->subscriptionService()->cancel($subscriptionId);
 } catch (FasterPay\Exception $e) {
     echo '<pre>';
     print_r($e->getMessage());
@@ -18,8 +18,8 @@ try {
     exit();
 }
 
-echo '<pre>';
-print_r($refundResponse);
-echo '</pre>';
-
-var_dump($refundResponse->isSuccessful());
+if ($cancellationResponse->isSuccessful()) {
+    echo 'Canceled';
+} else {
+    echo $cancellationResponse->getErrors()->getMessage();
+}

@@ -20,8 +20,8 @@ try {
     exit();
 }
 
-echo '<pre>';
-print_r($refundResponse);
-echo '</pre>';
-
-var_dump($refundResponse->isSuccessful());
+if ($refundResponse->isSuccessful()) {
+    echo 'Refunded ' . $amount;
+} else {
+    echo $refundResponse->getErrors()->getMessage();
+}

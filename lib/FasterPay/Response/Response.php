@@ -1,10 +1,12 @@
 <?php
 
-namespace FasterPay;
+namespace FasterPay\Response;
 
 class Response
 {
     const SUCCESS_CODE = 200;
+    const RESPONSE_ERROR_TEXT = 'error';
+    const DEFAULT_ERROR_CODE = 400;
 
     protected $response;
     protected $errors;
@@ -14,16 +16,7 @@ class Response
     {
         $this->response = $response;
 
-        $response = $this->getDecodeResponse();
-
-        $httpCode = $this->getHttpCode();
-
-        if ($httpCode != self::SUCCESS_CODE) {
-            $errorMessage = empty($response['message']) ? 'Error' : $response['message'];
-            $this->errors = new ResponseError(array('message' => $errorMessage, 'code' => $httpCode));
-        } else {
-            $this->success = true;
-        }
+        $this->handleResult();
     }
 
     public function getRawResponse()

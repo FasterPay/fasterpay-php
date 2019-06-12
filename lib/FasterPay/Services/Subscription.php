@@ -2,7 +2,7 @@
 namespace FasterPay\Services;
 
 use FasterPay\Exception;
-use FasterPay\Response;
+use FasterPay\Response\SubscriptionResponse;
 
 class Subscription extends GeneralService
 {
@@ -18,13 +18,8 @@ class Subscription extends GeneralService
 
         $response = $this->httpService->getHttpClient()->post($endpoint);
 
-        return new Response($response);
+        return new SubscriptionResponse($response);
 
-//        $endpoint = $this->getEndPoint($subscriptionId . '/cancel');
-//
-//        $response = $this->getHttpClient()->post($endpoint);
-//
-//        return new Response($response);
     }
 
 
