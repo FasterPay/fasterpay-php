@@ -89,7 +89,7 @@ require_once('fasterpay-php/lib/autoload.php');
 $gateway = new FasterPay\Gateway([
     'publicKey' => '<your-public-key>',
     'privateKey' => '<your-private-key>',
-    'isTest' => 0, // Use 1 for Test Mode
+    'isTest' => 1
 ]);
 ```
 
