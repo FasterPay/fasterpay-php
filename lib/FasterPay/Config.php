@@ -8,8 +8,6 @@ class Config
 	const API_BASE_URL = 'https://pay.fasterpay.com';
 	const API_SANDBOX_BASE_URL = 'https://pay.sandbox.fasterpay.com';
 
-	public static $instance;
-
 	private $publicKey 	= null;
 	private $privateKey = null;
 	private $apiBaseUrl = self::API_BASE_URL;
@@ -21,15 +19,18 @@ class Config
             if ($key == 'publicKey') {
                 $this->publicKey = $value;
             }
+
             if ($key == 'privateKey') {
                 $this->privateKey = $value;
             }
+
             if ($key == 'apiBaseUrl') {
                 $this->apiBaseUrl = $value;
             }
+
             if ($key == 'isTest' && $value) {
             	$this->isTest = 1;
-            	$this->apiBaseUrl = self::API_SANDBOX_BASE_URL;	
+            	$this->apiBaseUrl = self::API_SANDBOX_BASE_URL;
             }
         }
     }
@@ -77,7 +78,7 @@ class Config
 	public function setIsTest($value)
 	{
 		if ($value) {
-			$this->isTest = 1;	
+			$this->isTest = 1;
 		} else {
 			$this->isTest = 0;
 		}
