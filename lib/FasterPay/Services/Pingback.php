@@ -1,5 +1,5 @@
 <?php
-namespace FasterPay\Validator;
+namespace FasterPay\Services;
 
 use FasterPay\Gateway;
 
@@ -12,7 +12,7 @@ class Pingback
 		$this->gateway = $gateway;
 	}
 
-	public function validate($params = array())
+	public function validate($params = [])
 	{
 		if (empty($params)) {
 			return false;
