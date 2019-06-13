@@ -1,43 +1,87 @@
 <?php
+
 namespace FasterPay;
 
-use FasterPay\Request\PaymentForm;
-use FasterPay\Validator\Signature;
-use FasterPay\Validator\Pingback;
+use FasterPay\Services\HttpService;
+use FasterPay\Services\PaymentForm;
+use FasterPay\Services\Payment;
+use FasterPay\Services\Subscription;
+use FasterPay\Services\Signature;
+use FasterPay\Services\Pingback;
 
-class Gateway 
+class Gateway
 {
 
-	private $config = null;
+    protected $config;
+    protected $http;
+    protected $baseUrl = '';
+    protected $project;
+    protected $extraParams = [];
 
-	public function __construct($config = array())
-	{
-		if (is_array($config)) {
-			$config = new Config($config);
-		}
+    public function __construct($config = [])
+    {
+        if (is_array($config)) {
+            $config = new Config($config);
+        }
 
-		$this->config = $config;
-	}
+        $this->config = $config;
 
-	public function paymentForm()
-	{
-		return new PaymentForm($this);
-	}
+        $header = [
+            'X-ApiKey: ' . $this->config->getPrivateKey(),
+            'Content-Type: application/json'
+        ];
 
-	public function signature()
-	{
-		return new Signature($this);
-	}
+        $this->http = new HttpClient($header);
+    }
 
-	public function pingback()
-	{
-		return new Pingback($this);
-	}
+    protected function getBaseUrl()
+    {
+        if (!$url = $this->config->getApiBaseUrl()) {
+            $url = $this->baseUrl;
+        }
 
-	public function getConfig()
-	{
-		return $this->config;
-	}
+        return $url . '/';
+    }
+
+    public function getEndPoint($endpoint)
+    {
+
+        return $this->getBaseUrl() . $endpoint;
+    }
+
+    public function getHttpClient()
+    {
+        return $this->http;
+    }
+
+    public function paymentForm()
+    {
+        return new PaymentForm($this);
+    }
+
+    public function signature()
+    {
+        return new Signature($this);
+    }
+
+    public function pingback()
+    {
+        return new Pingback($this);
+    }
+
+    public function subscriptionService()
+    {
+        return new Subscription(new HttpService($this));
+    }
+
+    public function paymentService()
+    {
+        return new Payment(new HttpService($this));
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
+    }
 
 }
-
