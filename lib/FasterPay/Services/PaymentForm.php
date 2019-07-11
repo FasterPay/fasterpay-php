@@ -46,12 +46,13 @@ class PaymentForm
     {
         $params[self::FORM_API_KEY_FIELD] = $this->gateway->getConfig()->getPublicKey();
 
-        $params[self::FORM_HASH_FIELD] = $this->gateway->signature()->calculateSignature($params);
+        $params[self::FORM_HASH_FIELD] = $this->gateway->signature()->calculateWidgetSignature($params);
 
         return $params;
     }
 
-    protected function customizeForm($form, $options = []) {
+    protected function customizeForm($form, $options = [])
+    {
         if (!empty($options['hidePayButton']) && $options['hidePayButton']) {
             $form .= '<script>document.getElementById("' . self::BUTTON_ID . '").style.display = "none";</script>';
         }
