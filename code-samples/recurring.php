@@ -20,7 +20,8 @@ $form = $gateway->paymentForm()->buildForm(
         'recurring_period' => '6m',
         'recurring_trial_amount' => '30',
         'recurring_trial_period' => '1m',
-        'pingback_url' => 'https://yourcompanywebsite.com/pingback'
+        'pingback_url' => 'https://yourcompanywebsite.com/pingback',
+        'sign_version' => 'v2' // to use version 1 please skip this param or set it 'v1'
     ],
     [
         'autoSubmit' => false,
