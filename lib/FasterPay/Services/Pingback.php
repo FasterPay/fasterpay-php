@@ -42,11 +42,7 @@ class Pingback
             return false;
         }
 
-        if ($params['apiKey'] === $this->gateway->getConfig()->getPrivateKey()) {
-            return true;
-        }
-
-        return false;
+        return $params['apiKey'] === $this->gateway->getConfig()->getPrivateKey();
     }
 
     public function validateV2($params)
@@ -63,11 +59,6 @@ class Pingback
         }
 
         $expectedSignature = $this->gateway->signature()->calculatePingbackSignature($params['pingbackData'], $params['signVersion']);
-        $verifySignature = hash_equals($expectedSignature, $params['signature']);
-        if (!$verifySignature) {
-            return false;
-        }
-
-        return true;
+        return hash_equals($expectedSignature, $params['signature']);
     }
 }

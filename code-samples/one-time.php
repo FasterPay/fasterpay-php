@@ -16,7 +16,7 @@ $form = $gateway->paymentForm()->buildForm(
         'merchant_order_id' => time(),
         'success_url' => 'https://yourcompanywebsite.com/success',
         'pingback_url' => 'https://yourcompanywebsite.com/pingback',
-        'sign_version' => 'v2' // skip this param to use version 1
+        'sign_version' => 'v2' // to use version 1 please skip this param or set it 'v1'
     ],
     [
         'autoSubmit' => false,

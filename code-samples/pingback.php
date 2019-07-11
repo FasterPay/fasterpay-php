@@ -14,24 +14,19 @@ if (!empty($_SERVER['HTTP_X_FASTERPAY_SIGNATURE_VERSION'])) {
 }
 
 $pingbackData = null;
+$validationParams = array();
 
 switch ($signVersion) {
     case \FasterPay\Services\Signature::SIGN_VERSION_1:
-        if (!$gateway->pingback()->validate(["apiKey" => $_SERVER["HTTP_X_APIKEY"]])) {
-            exit('NOK');
-        }
+        $validationParams = ["apiKey" => $_SERVER["HTTP_X_APIKEY"]];
         $pingbackData = $_REQUEST;
         break;
     case \FasterPay\Services\Signature::SIGN_VERSION_2:
-        if (!$gateway->pingback()->validate(
-            [
-                'pingbackData' => file_get_contents('php://input'),
-                'signVersion' => $signVersion,
-                'signature' => $_SERVER["HTTP_X_FASTERPAY_SIGNATURE"],
-            ]
-        )) {
-            exit('NOK');
-        }
+        $validationParams = [
+            'pingbackData' => file_get_contents('php://input'),
+            'signVersion' => $signVersion,
+            'signature' => $_SERVER["HTTP_X_FASTERPAY_SIGNATURE"],
+        ];
         $pingbackData = json_decode(file_get_contents('php://input'), 1);
         break;
     default:
@@ -39,6 +34,10 @@ switch ($signVersion) {
 }
 
 if (empty($pingbackData)) {
+    exit('NOK');
+}
+
+if (!$gateway->pingback()->validate($validationParams)) {
     exit('NOK');
 }
 
