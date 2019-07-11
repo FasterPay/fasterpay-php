@@ -14,7 +14,7 @@ if (!empty($_SERVER['HTTP_X_FASTERPAY_SIGNATURE_VERSION'])) {
 }
 
 $pingbackData = null;
-$validationParams = array();
+$validationParams = [];
 
 switch ($signVersion) {
     case \FasterPay\Services\Signature::SIGN_VERSION_1:
