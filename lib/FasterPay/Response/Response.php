@@ -2,7 +2,7 @@
 
 namespace FasterPay\Response;
 
-class Response
+abstract class Response
 {
     const SUCCESS_CODE = 200;
     const RESPONSE_ERROR_TEXT = 'error';
@@ -18,6 +18,8 @@ class Response
 
         $this->handleResult();
     }
+
+    public abstract function handleResult();
 
     public function getRawResponse()
     {
