@@ -28,6 +28,8 @@ class GenericApiService
 
     private function request($endpoint, array $params = [], $method = self::HTTP_METHOD_POST, array $headers = [])
     {
+        $method = strtolower($method);
+
         if (!filter_var($endpoint, FILTER_VALIDATE_URL)) {
             throw new Exception('Invalid endpoint format');
         }

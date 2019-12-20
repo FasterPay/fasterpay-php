@@ -88,7 +88,8 @@ class Gateway
     public function callApi($endpoint, array $payload, $method = GenericApiService::HTTP_METHOD_POST, $header = [])
     {
         $endpoint = $this->getEndPoint($endpoint);
+        echo $endpoint;die;
         $service = new GenericApiService(new HttpClient);
-        return $service->request($endpoint, $payload, $method, $header);
+        return $service->call($endpoint, $payload, $method, $header);
     }
 }
