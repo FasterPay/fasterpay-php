@@ -2,6 +2,7 @@
 
 namespace FasterPay;
 
+use FasterPay\Services\GenericApiService;
 use FasterPay\Services\HttpService;
 use FasterPay\Services\PaymentForm;
 use FasterPay\Services\Payment;
@@ -84,4 +85,11 @@ class Gateway
         return $this->config;
     }
 
+    public function callApi($endpoint, array $payload, $method = GenericApiService::HTTP_METHOD_POST, $header = [])
+    {
+        $endpoint = $this->getEndPoint($endpoint);
+
+        $service = new GenericApiService(new HttpClient);
+        return $service->call($endpoint, $payload, $method, $header);
+    }
 }
